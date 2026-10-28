@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BIO412 Lab 3 Quiz</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+:root{--bg:#46178f;--card:#ffffff;--ink:#1c1c28;--mut:#6b6b80;--red:#e21b3c;--blue:#1368ce;--yel:#f2b400;--grn:#26890c;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#2d0f5e;--card:#2a2640;--ink:#f3f1fa;--mut:#b4afc8}}
+:root[data-theme="dark"]{--bg:#2d0f5e;--card:#2a2640;--ink:#f3f1fa;--mut:#b4afc8}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:#fff;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.scr{display:none;min-height:100%;flex-direction:column;align-items:center;padding:16px;max-width:720px;margin:0 auto;box-sizing:border-box;text-align:center}
+.on{display:flex}
+h1{font-size:1.7rem;margin:8px 0}
+.card{background:var(--card);color:var(--ink);border-radius:14px;padding:16px;width:100%;box-sizing:border-box;margin:8px 0}
+.mut{color:var(--mut);font-size:.9rem}
+input{font-size:1.1rem;padding:12px;border-radius:10px;border:0;width:100%;box-sizing:border-box;text-align:center}
+button{font:inherit;cursor:pointer;border:0;border-radius:10px}
+.go{background:#fff;color:#46178f;font-weight:700;font-size:1.2rem;padding:14px 28px;margin-top:10px;box-shadow:0 4px 0 rgba(0,0,0,.3)}
+#qr{background:#fff;padding:10px;border-radius:10px;display:inline-block;line-height:0}
+.top{display:flex;justify-content:space-between;width:100%;font-weight:700;margin-bottom:6px}
+.bar{height:10px;width:100%;background:rgba(255,255,255,.25);border-radius:6px;overflow:hidden}
+.bar i{display:block;height:100%;width:100%;background:#fff}
+.q{background:#fff;color:#1c1c28;border-radius:12px;padding:18px;font-size:1.25rem;font-weight:700;width:100%;box-sizing:border-box;margin:12px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%}
+.a{min-height:110px;color:#fff;font-weight:700;font-size:1.05rem;padding:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;box-shadow:0 4px 0 rgba(0,0,0,.3)}
+.a b{font-size:1.5rem}
+.c0{background:var(--red)}.c1{background:var(--blue)}.c2{background:var(--yel);color:#1c1c28}.c3{background:var(--grn)}
+.a.dim{opacity:.3}.a.right{outline:5px solid #fff}
+.fb{width:100%}
+.big{font-size:3rem;margin:0}
+.miss{text-align:left;font-size:.95rem;border-top:1px solid #ddd;padding:8px 0}
+@media (max-width:420px){.a{min-height:95px;font-size:.95rem}}
+</style></head><body>
+
+<div id="s0" class="scr on">
+ <h1>BIO412 · Lab 3 Quiz</h1>
+ <div class="mut" style="color:#e6dcff">Transformation, cell competency and Agrobacterium · 15 questions</div>
+ <div class="card" id="qrbox" style="display:none">
+  <b>Scan to play on your phone</b><br><br><div id="qr"></div>
+ </div>
+ <div class="card"><input id="nm" placeholder="Your nickname" maxlength="20"><br>
+ <button class="go" onclick="start()">Start</button>
+ <p class="mut">40 s per question. Faster correct answers earn more points (max 1000).</p></div>
+</div>
+
+<div id="s1" class="scr">
+ <div class="top"><span id="cnt"></span><span id="sc"></span></div>
+ <div class="bar"><i id="tb"></i></div>
+ <div class="q" id="qt"></div>
+ <div class="grid" id="ans"></div>
+ <div class="fb" id="fb"></div>
+</div>
+
+<div id="s2" class="scr">
+ <h1 id="rn"></h1>
+ <p class="big" id="rs"></p>
+ <div id="rm" style="color:#e6dcff;margin-bottom:8px"></div>
+ <div class="card" id="rv" style="text-align:left"></div>
+ <button class="go" onclick="start()">Play again</button>
+</div>
+
+<script>
+const QR_URL="https://claude.ai/artifact/GG3UFNW3Tpz9fTZR7o2dSs";
+const Q=[
+{q:"A cell that can take up and maintain foreign DNA is called…",a:["Competent","Transfected","Disarmed","Chimeric"],e:"Competence is the ability to take up DNA; transformation is the uptake event."},
+{q:"Which type of gene transfer is mediated by viruses such as bacteriophages?",a:["Transduction","Conjugation","Transformation","Transfection"],e:"Transduction uses viruses. Conjugation needs cell-to-cell contact."},
+{q:"Standard heat shock for CaCl₂-treated E. coli:",a:["42 °C for 30–90 s","37 °C for 1 h","0 °C for 30 min","65 °C for 10 min"],e:"A brief 42 °C shock after the cold step helps DNA enter."},
+{q:"Why must the DNA sample for electroporation be low in salt?",a:["High salt causes arcing during the pulse","Salt makes DNA negatively charged","Salt switches off vir genes","Salt prevents recovery at 28 °C"],e:"Electrocompetent cells need very low salt to avoid arcing."},
+{q:"Transformation efficiency is expressed as…",a:["CFU per µg of DNA","Colonies per plate","µg of DNA per colony","Cells per mL"],e:"Efficiency = colonies ÷ µg DNA, corrected for dilution (CFU/µg)."},
+{q:"What does VirA sense to start the infection program?",a:["Wound phenolics such as acetosyringone","Cefotaxime","Opines","Kanamycin"],e:"VirA senses wound signals and activates VirG, which switches vir genes ON."},
+{q:"Why do transformed plant cells make opines?",a:["Opines are food for the bacterium","Opines kill competing microbes","Opines drive photosynthesis","Opines act as plant antibiotics"],e:"Opines are nutrients; opine catabolism genes sit on the Ti plasmid."},
+{q:"Which DNA is transferred into the plant cell?",a:["T-DNA between the border repeats","The whole Ti plasmid","The vir region","The bacterial chromosome"],e:"Only DNA between the left and right borders is transferred."},
+{q:"A disarmed Ti plasmid has lost its…",a:["onc (tumor) genes","Border sequences","vir genes","Origin of replication"],e:"Tumor genes are removed; borders and vir functions are kept."},
+{q:"VirD2 is best described as…",a:["Border-cutting endonuclease that pilots the T-strand","ssDNA-binding protein that coats the T-strand","Wound sensor","Opine synthase"],e:"VirD2 stays bound to the 5′ end of the T-strand as a pilot protein."},
+{q:"Which protein coats the single-stranded T-strand to protect it?",a:["VirE2","VirA","VirG","VirB"],e:"VirE2 is a single-stranded DNA-binding protein."},
+{q:"In a binary vector system, the vir genes are supplied…",a:["In trans by a helper (disarmed Ti) plasmid","On the binary vector between the borders","By the plant genome","By the antibiotic"],e:"Vir proteins act in trans and process any DNA flanked by borders."},
+{q:"Typical recovery after transforming Agrobacterium:",a:["28 °C for 2–4 h","42 °C for 30 s","37 °C overnight","4 °C for 1 h"],e:"Cooler (28 °C) and longer than E. coli; colonies take about 2 days."},
+{q:"Explants carrying a hygromycin-resistance (HPT) vector are placed on kanamycin plates. Result?",a:["All die: marker and selective agent do not match","All survive","Only GOI cells survive","Agrobacterium is removed"],e:"Match the selective agent to the marker, or even transformed tissue dies."},
+{q:"A leaf glows green with GFP 2 days after infiltration. This most likely shows…",a:["Transient expression, not proof of stable transformation","Stable integration","Crown gall","Gene silencing"],e:"Stable transformation needs selection, regeneration, PCR confirmation and inheritance."}
+];
+const SH=["▲","◆","●","■"],T=40;
+let i,score,ok,cur,t0,tm,locked,miss,name,order;
+const $=id=>document.getElementById(id);
+function show(n){[0,1,2].forEach(k=>$("s"+k).classList.toggle("on",k===n));scrollTo(0,0)}
+function shuf(a){a=a.slice();for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a}
+function start(){name=($("nm").value||"").trim()||"Player";i=0;score=0;ok=0;miss=[];show(1);next()}
+function next(){
+ if(i>=Q.length)return end();
+ const q=Q[i];order=shuf([0,1,2,3]);cur={c:order.indexOf(0)};locked=false;
+ $("cnt").textContent="Question "+(i+1)+" / "+Q.length;$("sc").textContent=score+" pts";
+ $("qt").textContent=q.q;$("fb").innerHTML="";
+ $("ans").innerHTML=order.map((o,k)=>'<button class="a c'+k+'" onclick="pick('+k+')"><b>'+SH[k]+'</b>'+q.a[o]+'</button>').join("");
+ t0=Date.now();clearInterval(tm);tick();tm=setInterval(tick,100)
+}
+function tick(){const el=(Date.now()-t0)/1000;$("tb").style.width=Math.max(0,100-el/T*100)+"%";if(el>=T)pick(-1)}
+function pick(k){
+ if(locked)return;locked=true;clearInterval(tm);
+ const el=Math.min(T,(Date.now()-t0)/1000),good=k===cur.c,q=Q[i];
+ const pts=good?Math.round(1000*(1-el/T/2)):0;score+=pts;if(good)ok++;else miss.push(q);
+ document.querySelectorAll(".a").forEach((b,j)=>{b.disabled=true;if(j===cur.c)b.classList.add("right");else b.classList.add("dim")});
+ $("sc").textContent=score+" pts";
+ const head=good?"✅ Correct! +"+pts:(k<0?"⏰ Time’s up":"❌ Not quite");
+ $("fb").innerHTML='<div class="card"><b>'+head+'</b><p class="mut" style="margin:6px 0 0">'+q.e+'</p></div><button class="go" onclick="i++;next()">'+(i===Q.length-1?"See results":"Next ▶")+'</button>'
+}
+function end(){
+ show(2);const pc=Math.round(ok/Q.length*100);
+ $("rn").textContent=name+", well played!";$("rs").textContent=score+" pts";
+ $("rm").textContent=ok+" / "+Q.length+" correct ("+pc+"%)  ·  "+(pc>=90?"🏆 Genetic engineer!":pc>=70?"🌱 Strong work":pc>=50?"🧫 Keep practising":"📚 Review the slides");
+ $("rv").innerHTML=miss.length?"<b>Review these:</b>"+miss.map(q=>'<div class="miss"><b>'+q.q+'</b><br>✔ '+q.a[0]+'<br><span class="mut">'+q.e+'</span></div>').join(""):"<b>Perfect score, nothing to review! 🎉</b>"
+}
+if(QR_URL&&typeof QRCode!=="undefined"){$("qrbox").style.display="block";new QRCode($("qr"),{text:QR_URL,width:190,height:190,correctLevel:QRCode.CorrectLevel.M})}
+</script>
+</body></html>
